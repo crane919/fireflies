@@ -1,6 +1,10 @@
 from firefly import FireFly
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
+from time import sleep
+from IPython.display import clear_output
+from matplotlib.animation import FuncAnimation
+
 
 
 class Firefly_Model():
@@ -36,22 +40,25 @@ class Firefly_Model():
     def step(self):
         for agent in self.agents:
             agent.step()
-        self.handle_flash()
+        # self.handle_flash()
 
         
     def draw(self):
         """
         Draws the current state of the model
         """
-        xs, ys = self.get_coords()
+        flash_coords = []
+        non_flash_coords = []
         
-        if FireFly.is_flashing:
-            # draw agent as yellow
-            self.points = plt.plot(xs, ys, '.', color='yellow')[0]
-        else:
-            # draw agent as bug-color
-            self.points = plt.plot(xs, ys, '.', color='red')[0]
-        
+        for agent in self.agents:
+            if agent.is_flash():
+                flash_coords.append([agent.loc[0], agent.loc[1]])
+            else:
+                non_flash_coords.append([agent.loc[0], agent.loc[1]])
+
+        plt.scatter([coord[0] for coord in flash_coords], [coord[1] for coord in flash_coords], color='yellow')
+        plt.scatter([coord[0] for coord in non_flash_coords], [coord[1] for coord in non_flash_coords], color='black')
+            
     def get_coords(self):
         """
         Gets the coordinates of the agents.
@@ -67,10 +74,12 @@ class Firefly_Model():
         #     else:
         #         non_flashing_agent_locs.append(agent.locs)
         # return flashing_agent_locs, non_flashing_agent_locs
-        agent_locs = np.array()
-        for agent in self.agents:
-            agent_locs.append(agent.loc)
-        return agent_locs
+        xs, ys = np.transpose([agent.loc for agent in self.agents])
+        return xs, ys
+        # agent_locs = np.array()
+        # for agent in self.agents:
+        #     agent_locs.append(agent.loc)
+        # return agent_locs
     
     def handle_flash(self):
         # flashing_agent_locs, non_flashing_agent_locs = self.get_coords()
@@ -90,9 +99,24 @@ class Firefly_Model():
             for num in arr_2:
                 if num < non_flashing_firefly.in_range:
                     count += 1
-            non_flashing_firefly.get_flash(count)            
+            non_flashing_firefly.get_flash(count)
+    
+    def animate(self):
+        """
+        Animate the model
+        """
+        fig, ax = plt.subplots()
 
+        def update(frame):
+            ax.clear()  # Clear the previous frame
+            self.step()  # Advance the simulation
+            self.draw()  # Draw the updated state of the model
+
+        ani = FuncAnimation(fig, update, frames=range(100), interval=50)
+
+        plt.show()
 
 
 test_model = Firefly_Model()
 test_model.make_agents()
+test_model.animate()

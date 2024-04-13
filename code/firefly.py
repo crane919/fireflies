@@ -11,7 +11,7 @@ class FireFly():
             post
         """
         # Movement        
-        self.loc = np.array(random.uniform(0, 100), random.uniform(0, 100))
+        self.loc = np.array([random.uniform(0, 100), random.uniform(0, 100)])
         
         self.travel_step = 1
 
@@ -30,7 +30,7 @@ class FireFly():
         """
         pos_X = self.loc[0] + random.uniform(-1,1) * self.travel_step
         pos_Y = self.loc[1] + random.uniform(-1,1) * self.travel_step
-        self.loc = (pos_X, pos_Y)
+        self.loc = np.array([pos_X, pos_Y])
 
     def try_flash(self):
         """
