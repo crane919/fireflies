@@ -12,7 +12,7 @@ class Firefly_Model():
     Represents a Firefly Syncronizaton Model.
     """
 
-    def __init__(self, grid_size=100, num_agents=100, **agent_params):
+    def __init__(self, grid_size=100, num_agents=10, **agent_params):
         """
         Create a new Firefly model
         Args:
@@ -39,8 +39,9 @@ class Firefly_Model():
     
     def step(self):
         for agent in self.agents:
+            print(agent.curr_time)
             agent.step()
-        # self.handle_flash()
+        self.handle_flash()
 
         
     def draw(self):
@@ -84,13 +85,13 @@ class Firefly_Model():
     def handle_flash(self):
         # flashing_agent_locs, non_flashing_agent_locs = self.get_coords()
         # for non_flashing_firefly in non_flashing_agent_locs:
-        flashing_agents_locs = np.array()
-        non_flashing_agents = np.array()
+        flashing_agents_locs = np.array([])
+        non_flashing_agents = np.array([])
         for firefly in self.agents:
             if firefly.is_flash():
-                flashing_agents_locs.append(firefly.loc)
+                np.append(flashing_agents_locs, firefly.loc)
             else:
-                non_flashing_agents.append(firefly)
+                np.append(non_flashing_agents, firefly)
         
         for non_flashing_firefly in non_flashing_agents:
             arr = flashing_agents_locs - non_flashing_firefly.loc
@@ -112,11 +113,10 @@ class Firefly_Model():
             self.step()  # Advance the simulation
             self.draw()  # Draw the updated state of the model
 
-        ani = FuncAnimation(fig, update, frames=range(100), interval=50)
+        ani = FuncAnimation(fig, update, frames=range(100), interval=100)
 
         plt.show()
 
 
 test_model = Firefly_Model()
-test_model.make_agents()
 test_model.animate()
