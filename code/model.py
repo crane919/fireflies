@@ -12,7 +12,7 @@ class Firefly_Model():
     Represents a Firefly Syncronizaton Model.
     """
 
-    def __init__(self, grid_size=100, num_agents=10, **agent_params):
+    def __init__(self, grid_size=100, num_agents=40, **agent_params):
         """
         Create a new Firefly model
         Args:
@@ -38,9 +38,11 @@ class Firefly_Model():
             self.agents.append(FireFly())
     
     def step(self):
+        times = []
         for agent in self.agents:
-            print(agent.curr_time)
             agent.step()
+            times.append(agent.curr_time)
+        print(times)
         self.handle_flash()
 
         
@@ -85,22 +87,28 @@ class Firefly_Model():
     def handle_flash(self):
         # flashing_agent_locs, non_flashing_agent_locs = self.get_coords()
         # for non_flashing_firefly in non_flashing_agent_locs:
-        flashing_agents_locs = np.array([])
-        non_flashing_agents = np.array([])
+        flashing_agents_locs = []
+        non_flashing_agents = []
         for firefly in self.agents:
             if firefly.is_flash():
-                np.append(flashing_agents_locs, firefly.loc)
+                flashing_agents_locs.append(firefly.loc)
             else:
-                np.append(non_flashing_agents, firefly)
-        
-        for non_flashing_firefly in non_flashing_agents:
-            arr = flashing_agents_locs - non_flashing_firefly.loc
-            arr_2 = np.linalg.norm(arr, axis=1)
-            count = 0
-            for num in arr_2:
-                if num < non_flashing_firefly.in_range:
-                    count += 1
-            non_flashing_firefly.get_flash(count)
+                non_flashing_agents.append(firefly)
+        # print("Flashing:", flashing_agents_locs, "Not flashing:", non_flashing_agents)
+
+        if len(flashing_agents_locs) != 0:
+            for non_flashing_firefly in non_flashing_agents:
+                # print(flashing_agents_locs, non_flashing_firefly.loc, "hereeeee")
+                arr = np.array(flashing_agents_locs) - non_flashing_firefly.loc
+                arr_2 = np.linalg.norm(arr, axis=1)
+                #print(arr_2, "aaaaaaaaa")
+                count = 0
+                for num in arr_2:
+                    #print(num, "nummmmm")
+                    if num < non_flashing_firefly.in_range:
+                        #print("reached")
+                        count += 1
+                    non_flashing_firefly.get_flash(count)
     
     def animate(self):
         """
