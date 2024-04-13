@@ -1,8 +1,8 @@
 import random
+import numpy as np
 
 
-
-class FireFly:
+class FireFly():
     def __init__(self):
         """
         Set up the firefly
@@ -10,36 +10,42 @@ class FireFly:
         args:
             post
         """
-        # Movement
-        self.pos_X = random.uniform(0, 100)
-        self.pos_Y = random.uniform(0, 100)
+        # Movement        
+        self.loc = np.array(random.uniform(0, 100), random.uniform(0, 100))
+        
         self.travel_step = 1
 
         # Influence 
-        self.radius = 1
+        self.in_range = 1
         self.influence = 1
         self.flash = False
 
         # Clock
         self.clock_cycle = 12
         self.curr_time = random.randint(0,12)
-
+        
     def move(self):
         """
         Firefly makes a random movement
         """
-        self.pos_X += random.uniform(-1,1) * self.travel_step
-        self.pos_Y += random.uniform(-1,1) * self.travel_step
+        pos_X = self.loc[0] + random.uniform(-1,1) * self.travel_step
+        pos_Y = self.loc[1] + random.uniform(-1,1) * self.travel_step
+        self.loc = (pos_X, pos_Y)
 
     def try_flash(self):
+        """
+        Seeing if firefly is ready to flash
+        """
         if self.curr_time == self.clock_cycle:
             self.curr_time = 0
             self.flash = True
         else:
             self.flash = False
 
-    def get_flash(self):
-        self.curr_time += 1
+    def get_flash(self, num_flashes):
+        self.curr_time += num_flashes
+        if self.curr_time > self.clock_cycle:
+            self.curr_time -= self.clock_cycle
     
     def is_flash(self):
         return self.flash
