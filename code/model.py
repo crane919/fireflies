@@ -12,7 +12,7 @@ class Firefly_Model():
     Represents a Firefly Syncronizaton Model.
     """
 
-    def __init__(self, grid_size=100, num_agents=50, **agent_params):
+    def __init__(self, grid_size=100, num_agents=20, **agent_params):
         """
         Create a new Firefly model
         Args:
@@ -25,6 +25,11 @@ class Firefly_Model():
         self.agent_params = agent_params
         self.agents = []
         self.make_agents()
+
+        self.overall_time = 0
+        self.time_series = []
+        self.firefly_series = []
+
     
     def make_agents(self):
         """
@@ -43,7 +48,9 @@ class Firefly_Model():
             agent.step()
             times.append(agent.curr_time)
         print(times)
-        self.handle_flash()
+        self.handle_flash2()
+        self.record()
+        self.overall_time+=1
 
         
     def draw(self):
@@ -62,27 +69,6 @@ class Firefly_Model():
         plt.scatter([coord[0] for coord in flash_coords], [coord[1] for coord in flash_coords], color='yellow')
         plt.scatter([coord[0] for coord in non_flash_coords], [coord[1] for coord in non_flash_coords], color='black')
             
-    def get_coords(self):
-        """
-        Gets the coordinates of the agents.
-
-        returns:
-
-        """
-        # flashing_agent_locs = np.array()
-        # non_flashing_agent_locs = np.array()
-        # for agent in self.agents:
-        #     if agent.is_flashing:
-        #         flashing_agent_locs.append(agent.locs)
-        #     else:
-        #         non_flashing_agent_locs.append(agent.locs)
-        # return flashing_agent_locs, non_flashing_agent_locs
-        xs, ys = np.transpose([agent.loc for agent in self.agents])
-        return xs, ys
-        # agent_locs = np.array()
-        # for agent in self.agents:
-        #     agent_locs.append(agent.loc)
-        # return agent_locs
     
     def handle_flash(self):
         # flashing_agent_locs, non_flashing_agent_locs = self.get_coords()
@@ -108,8 +94,41 @@ class Firefly_Model():
                     if num < non_flashing_firefly.in_range:
                         #print("reached")
                         count += 1
-                    non_flashing_firefly.get_flash(count)
+        if count > 0:
+            non_flashing_firefly.get_flash(count)
     
+    def handle_flash2(self):
+        # Go through all fireflies
+        for firefly in self.agents:
+            # If the firefly is flashing
+            if firefly.is_flash():
+                # Go through all fireflies
+                for other_firefly in self.agents:
+                    # Select all none flashing fireflies
+                    if not other_firefly.is_flash():
+                        # See if the two fireflies are close enough
+                        if self.close_enough(firefly, other_firefly):
+                            # Receive flash
+                            other_firefly.get_flash()
+
+
+
+    def close_enough(self, firefly1, firefly2):
+        """
+        firefly1 = flashing
+        firefly2 = not flashing
+        """
+        (x1, y1) = firefly1.loc
+        (x2, y2) = firefly2.loc
+        
+        dist = np.sqrt((x2-x1)**2 + (y2-y1)**2)
+        
+        if dist <= firefly1.in_range:
+            return True
+        return False
+        
+        
+
     def animate(self):
         """
         Animate the model
@@ -124,7 +143,28 @@ class Firefly_Model():
         ani = FuncAnimation(fig, update, frames=range(100), interval=100)
 
         plt.show()
+        
+    def record(self):
+        self.time_series.append(self.overall_time)
+        temp = []
+        for firefly in self.agents:
+            temp.append(firefly.curr_time)
+        self.firefly_series.append(temp)
+    
+
+    def plot_fireflies_over_time(self):
+        per_flys = np.transpose(np.array(self.firefly_series))
+
+        for fly in per_flys:
+            plt.plot(self.time_series, fly)
+        plt.xlabel("Overall Time")
+        plt.ylabel("Firefly Clock")
+        plt.title("Firefly Behavior Over Time")
+        plt.legend()
+        plt.show()
+
 
 
 test_model = Firefly_Model()
 test_model.animate()
+test_model.plot_fireflies_over_time()
