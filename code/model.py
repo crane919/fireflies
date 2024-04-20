@@ -12,7 +12,7 @@ class Firefly_Model():
     Represents a Firefly Syncronizaton Model.
     """
 
-    def __init__(self, grid_size=100, num_agents=40, **agent_params):
+    def __init__(self, grid_size=100, num_agents=50, **agent_params):
         """
         Create a new Firefly model
         Args:

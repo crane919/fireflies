@@ -13,7 +13,7 @@ class FireFly():
         # Movement        
         self.loc = np.array([random.uniform(0, 5), random.uniform(0, 5)])
         
-        self.travel_step = 0
+        self.travel_step = 2
 
         # Influence 
         self.in_range = 10
@@ -21,8 +21,8 @@ class FireFly():
         self.flash = False
 
         # Clock
-        self.clock_cycle = 12
-        self.curr_time = random.randint(0,11)
+        self.clock_cycle = 10
+        self.curr_time = random.randint(0,self.clock_cycle-1)
         
     def move(self):
         """
@@ -43,8 +43,8 @@ class FireFly():
             self.flash = False
 
     def get_flash(self, num_flashes):
-        self.curr_time += num_flashes
-        # self.curr_time += 1
+        # self.curr_time += num_flashes
+        self.curr_time += 1
         if self.curr_time > self.clock_cycle:
             self.curr_time -= self.clock_cycle
     
@@ -55,6 +55,6 @@ class FireFly():
         self.move()
         self.curr_time += 1
         if self.curr_time > self.clock_cycle:
-            self.curr_time -= self.clock_cycle
+            self.curr_time % self.clock_cycle
         self.try_flash()
 
