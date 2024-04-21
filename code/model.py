@@ -29,6 +29,7 @@ class Firefly_Model():
         self.overall_time = 0
         self.time_series = []
         self.firefly_series = []
+        self.blink_series = []
 
     
     def make_agents(self):
@@ -88,6 +89,7 @@ class Firefly_Model():
         
         self.total_flashes = blink_count
         print("Total Blinks: ", self.total_flashes)
+        self.blink_series.append(self.total_flashes)
         
         if len(flashing_agents_locs) != 0:
             for non_flashing_firefly in non_flashing_agents:
@@ -132,7 +134,13 @@ class Firefly_Model():
             return True
         return False
         
-        
+    def run(self, frames=1000):
+        for _ in range(frames):
+            self.step()
+            if self.total_flashes == self.num_agents:
+                break
+
+
 
     def animate(self):
         """
@@ -168,8 +176,20 @@ class Firefly_Model():
         plt.legend()
         plt.show()
 
+    def plot_blink(self):
+
+        plt.plot(self.time_series, self.blink_series, ".")
+        plt.xlabel("Overall Time")
+        plt.ylabel("BLink COunt")
+        plt.title("Firefly Behavior Over Time")
+        plt.legend()
+        plt.show()
+
 
 
 test_model = Firefly_Model()
-test_model.animate()
-test_model.plot_fireflies_over_time()
+test_model.run(frames=10000)
+test_model.plot_blink()
+#test_model.plot_fireflies_over_time()
+
+

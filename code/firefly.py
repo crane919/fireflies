@@ -15,7 +15,7 @@ class FireFly():
         self.travel_step = 3
 
         # Influence 
-        self.in_range = 15
+        self.in_range = 8
         self.flash = False
         self.total_flashes = 0
 
