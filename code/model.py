@@ -12,7 +12,7 @@ class Firefly_Model():
     Represents a Firefly Syncronizaton Model.
     """
 
-    def __init__(self, grid_size=100, num_agents=20, **agent_params):
+    def __init__(self, grid_size=100, num_agents=50, **agent_params):
         """
         Create a new Firefly model
         Args:
@@ -44,11 +44,13 @@ class Firefly_Model():
     
     def step(self):
         times = []
+        self.handle_flash()
+        for agent in self.agents:
+            agent.try_flash()
         for agent in self.agents:
             agent.step()
             times.append(agent.curr_time)
         print(times)
-        self.handle_flash2()
         self.record()
         self.overall_time+=1
 
@@ -71,8 +73,6 @@ class Firefly_Model():
             
     
     def handle_flash(self):
-        # flashing_agent_locs, non_flashing_agent_locs = self.get_coords()
-        # for non_flashing_firefly in non_flashing_agent_locs:
         flashing_agents_locs = []
         non_flashing_agents = []
         for firefly in self.agents:
@@ -80,22 +80,21 @@ class Firefly_Model():
                 flashing_agents_locs.append(firefly.loc)
             else:
                 non_flashing_agents.append(firefly)
-        # print("Flashing:", flashing_agents_locs, "Not flashing:", non_flashing_agents)
+        print("Flashing:", len(flashing_agents_locs), "Not flashing:", len(non_flashing_agents))
 
         if len(flashing_agents_locs) != 0:
             for non_flashing_firefly in non_flashing_agents:
-                # print(flashing_agents_locs, non_flashing_firefly.loc, "hereeeee")
                 arr = np.array(flashing_agents_locs) - non_flashing_firefly.loc
                 arr_2 = np.linalg.norm(arr, axis=1)
-                #print(arr_2, "aaaaaaaaa")
                 count = 0
                 for num in arr_2:
-                    #print(num, "nummmmm")
                     if num < non_flashing_firefly.in_range:
-                        #print("reached")
                         count += 1
-        if count > 0:
-            non_flashing_firefly.get_flash(count)
+                if count > 0:
+                    non_flashing_firefly.get_flash(count)
+                    if non_flashing_firefly.curr_time > non_flashing_firefly.clock_cycle:
+                        non_flashing_firefly.curr_time = 0 
+                    
     
     def handle_flash2(self):
         # Go through all fireflies
@@ -110,8 +109,7 @@ class Firefly_Model():
                         if self.close_enough(firefly, other_firefly):
                             # Receive flash
                             other_firefly.get_flash()
-
-
+        
 
     def close_enough(self, firefly1, firefly2):
         """
@@ -166,5 +164,5 @@ class Firefly_Model():
 
 
 test_model = Firefly_Model()
-test_model.animate()
+# test_model.animate()
 test_model.plot_fireflies_over_time()
