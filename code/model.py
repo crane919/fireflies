@@ -43,6 +43,7 @@ class Firefly_Model():
             self.agents.append(FireFly())
     
     def step(self):
+        self.total_flashes = 0
         times = []
         self.handle_flash()
         for agent in self.agents:
@@ -75,13 +76,19 @@ class Firefly_Model():
     def handle_flash(self):
         flashing_agents_locs = []
         non_flashing_agents = []
+        blink_count = 0
         for firefly in self.agents:
             if firefly.is_flash():
                 flashing_agents_locs.append(firefly.loc)
+                blink_count += 1
             else:
                 non_flashing_agents.append(firefly)
+                
         print("Flashing:", len(flashing_agents_locs), "Not flashing:", len(non_flashing_agents))
-
+        
+        self.total_flashes = blink_count
+        print("Total Blinks: ", self.total_flashes)
+        
         if len(flashing_agents_locs) != 0:
             for non_flashing_firefly in non_flashing_agents:
                 arr = np.array(flashing_agents_locs) - non_flashing_firefly.loc
@@ -164,5 +171,5 @@ class Firefly_Model():
 
 
 test_model = Firefly_Model()
-# test_model.animate()
+test_model.animate()
 test_model.plot_fireflies_over_time()

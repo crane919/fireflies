@@ -15,8 +15,9 @@ class FireFly():
         self.travel_step = 3
 
         # Influence 
-        self.in_range = 5
+        self.in_range = 15
         self.flash = False
+        self.total_flashes = 0
 
         # Clock
         self.clock_cycle = 10
