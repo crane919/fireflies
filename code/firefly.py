@@ -3,7 +3,7 @@ import numpy as np
 
 
 class FireFly():
-    def __init__(self):
+    def __init__(self, grid_size, travel_step, in_range, clock_cycle):
         """
         Set up the firefly
 
@@ -11,16 +11,16 @@ class FireFly():
             post
         """
         # Movement        
-        self.loc = np.array([random.uniform(0, 15), random.uniform(0, 15)])
-        self.travel_step = 3
+        self.loc = np.array([random.uniform(0, grid_size), random.uniform(0, grid_size)])
+        self.travel_step = travel_step
 
         # Influence 
-        self.in_range = 8
+        self.in_range = in_range
         self.flash = False
         self.total_flashes = 0
 
         # Clock
-        self.clock_cycle = 10
+        self.clock_cycle = clock_cycle
         self.curr_time = random.randint(0,self.clock_cycle-1)
         
     def move(self):

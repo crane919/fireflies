@@ -12,24 +12,27 @@ class Firefly_Model():
     Represents a Firefly Syncronizaton Model.
     """
 
-    def __init__(self, grid_size=100, num_agents=50, **agent_params):
+    def __init__(self, grid_size=15, num_agents=50, travel_step=3, in_range=8, clock_cycle=10):
         """
         Create a new Firefly model
         Args:
             grid_size (int): the size of the grid (rows and columns)
             num_agents (int): the number of agents to generate. Defaults to 100.
-            agent_params: parameters to pass to Agent
         """
         self.grid_size = grid_size
         self.num_agents = num_agents
-        self.agent_params = agent_params
         self.agents = []
-        self.make_agents()
+        
+        self.travel_step = travel_step
+        self.in_range = in_range
+        self.clock_cycle = clock_cycle
 
         self.overall_time = 0
         self.time_series = []
         self.firefly_series = []
         self.blink_series = []
+
+        self.make_agents()
 
     
     def make_agents(self):
@@ -41,7 +44,7 @@ class Firefly_Model():
         """
 
         for i in range(self.num_agents):
-            self.agents.append(FireFly())
+            self.agents.append(FireFly(self.grid_size, self.travel_step, self.in_range, self.clock_cycle))
     
     def step(self):
         self.total_flashes = 0
@@ -176,18 +179,18 @@ class Firefly_Model():
         plt.legend()
         plt.show()
 
-    def plot_blink(self):
+    def plot_blink(self, title="Firefly Behavior Over Time"):
 
         plt.plot(self.time_series, self.blink_series, ".")
         plt.xlabel("Overall Time")
         plt.ylabel("BLink COunt")
-        plt.title("Firefly Behavior Over Time")
+        plt.title(title)
         plt.legend()
         plt.show()
 
 
 
-test_model = Firefly_Model()
+test_model = Firefly_Model(grid_size=30, num_agents=50, travel_step=6, in_range=16, clock_cycle=10)
 test_model.run(frames=10000)
 test_model.plot_blink()
 #test_model.plot_fireflies_over_time()
