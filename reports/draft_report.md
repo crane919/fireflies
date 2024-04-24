@@ -101,6 +101,32 @@ Figure 3 gives us an understanding of the number of flashes occurring at every
 timestep. There appears to be no distinct pattern before the fireflies
 synchronize around timestep 8250. More time needs to be spent with this graph.
 
+## Extension
+While constructing our model, we noted that adjustments to the parameters resulted in notable variations in synchronization speed or its occurrence. We wanted to explore the limits of our model and analyze the influences of parameters such as the number of fireflies, travel step of the fireflies, and fireflies influence range.
+
+### Number of Fireflies
+<img title="Individual Firefly Graph" src="img/num_agents.png">
+<center> Grid size: 30, Travel step: 6, Influence range: 15, Clock cycle: 10 </center> 
+
+Thoughts will go here...
+
+### Travel Step of Fireflies
+<img title="Individual Firefly Graph" src="img/travel_step.png">
+<center> Grid size: 30, Number of agents: 60, Influence range: 15, Clock cycle: 10 </center> 
+
+Thoughts will go here...
+
+### Fireflies Influence Range
+<img title="Individual Firefly Graph" src="img/in_range.png">
+<center> Grid size: 30, Number of agents: 60, Travel step: 6, Clock cycle: 10 </center> 
+
+Thoughts will go here...
+
+
+
+
+
+
 ## Causes for Concern
 
 Moving forward, we need to begin our implementation of our extension meaning we

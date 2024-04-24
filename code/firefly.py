@@ -31,7 +31,7 @@ class FireFly():
         pos_X = self.loc[0] + random.uniform(-1,1) * self.travel_step
         pos_Y = self.loc[1] + random.uniform(-1,1) * self.travel_step
         
-        if pos_X > 15 or pos_X < 0 or pos_Y > self.grid_size or pos_Y < 0:
+        if pos_X > self.grid_size or pos_X < 0 or pos_Y > self.grid_size or pos_Y < 0:
             np.array([random.uniform(0, self.grid_size), random.uniform(0, self.grid_size)])
         else:
             self.loc = np.array([pos_X, pos_Y])

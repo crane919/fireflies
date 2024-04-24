@@ -138,10 +138,12 @@ class Firefly_Model():
         return False
         
     def run(self, frames=1000):
-        for _ in range(frames):
+        for i in range(frames):
             self.step()
             if self.total_flashes == self.num_agents:
-                break
+                return i
+        return 0
+                
 
 
 
@@ -180,7 +182,6 @@ class Firefly_Model():
         plt.show()
 
     def plot_blink(self, title="Firefly Behavior Over Time"):
-
         plt.plot(self.time_series, self.blink_series, ".")
         plt.xlabel("Overall Time")
         plt.ylabel("BLink COunt")
@@ -189,11 +190,80 @@ class Firefly_Model():
         plt.show()
 
 
+def test_num_agents(count):
+    avg_critical_points = []
+    everything = []
+    num_agent = 0
+    # Each cycle of the same number of agents
+    for _ in range(count):
+        crit_points = []
+        # Do it 10 times to make sure
+        for _ in range(10):
+            num_test = Firefly_Model(grid_size=30, num_agents=num_agent, travel_step=6, in_range=15, clock_cycle=10)
+            result = num_test.run(frames=10000)
+            if result:
+                crit_points.append(result)
+        if crit_points:
+            avg_critical_points.append(sum(crit_points) / len(crit_points))
+        else:
+            avg_critical_points.append(0)
+        num_agent += 5
+        everything.append(crit_points)
+    print(everything)
+    return avg_critical_points
 
-test_model = Firefly_Model(grid_size=30, num_agents=50, travel_step=6, in_range=16, clock_cycle=10)
-test_model.animate()
-# test_model.run(frames=10000)
+def test_travel_step(count):
+    avg_critical_points = []
+    everything = []
+    travel_step = 0
+    # Each cycle of the same number of agents
+    for _ in range(count):
+        crit_points = []
+        # Do it 10 times to make sure
+        for _ in range(10):
+            num_test = Firefly_Model(grid_size=30, num_agents=60, travel_step=travel_step, in_range=15, clock_cycle=10)
+            result = num_test.run(frames=10000)
+            if result:
+                crit_points.append(result)
+        if crit_points:
+            avg_critical_points.append(sum(crit_points) / len(crit_points))
+        else:
+            avg_critical_points.append(0)
+        travel_step += 1.5
+        everything.append(crit_points)
+    print(everything)
+    return avg_critical_points
+
+def test_in_range(count):
+    avg_critical_points = []
+    everything = []
+    in_range = 0
+    # Each cycle of the same number of agents
+    for _ in range(count):
+        crit_points = []
+        # Do it 10 times to make sure
+        for _ in range(10):
+            num_test = Firefly_Model(grid_size=30, num_agents=60, travel_step=6, in_range=in_range, clock_cycle=10)
+            result = num_test.run(frames=10000)
+            if result:
+                crit_points.append(result)
+        if crit_points:
+            avg_critical_points.append(sum(crit_points) / len(crit_points))
+        else:
+            avg_critical_points.append(0)
+        in_range += 1.5
+        everything.append(crit_points)
+    print(everything)
+    return avg_critical_points
+
+          
+
+
+test_model = Firefly_Model(grid_size=30, num_agents=50, travel_step=5, in_range=16, clock_cycle=10)
+# test_model.animate()
+#test_model.run(frames=10000)
 # test_model.plot_blink()
 # test_model.plot_fireflies_over_time()
+print(test_in_range(20))
 
 
