@@ -90,10 +90,10 @@ At each time step the following happens, in this order:
     <figure>
         <img src="reports/report_img/fireflies_report.gif"
             title="Figure 1">
-        <figcaption>Figure 1. A visualization of our agent-based model. A black point represents a
+        <p>Figure 1. A visualization of our agent-based model. A black point represents a
     non-flashing firefly while a yellow point represents a flashing firefly. This
     particular model synchronized in ~30 seconds. The parameters are: Grid size: 30,
-    Number of agents: 50, Travel step: 6, In range: 15, Clock cycle: 10.</figcaption>
+    Number of agents: 50, Travel step: 6, In range: 15, Clock cycle: 10.</p>
     </figure>
 </div>
 
@@ -101,9 +101,9 @@ At each time step the following happens, in this order:
     <figure>
         <img src="reports/report_img/blink_rate_exp1.png"
             title="Figure 2">
-        <figcaption>Figure 2*. Replication results plotting the total number of flashes (blinks)
+        <p>Figure 2*. Replication results plotting the total number of flashes (blinks)
     at each timestep until synchronization. This model uses 50 agents so once the
-    number of flashes reaches 50, the model is synchronized.</figcaption>
+    number of flashes reaches 50, the model is synchronized.</p>
     </figure>
 </div>
 
@@ -111,9 +111,9 @@ At each time step the following happens, in this order:
     <figure>
         <img src="reports/report_img/clock_rate_exp1.png"
             title="Figure 3">
-        <figcaption>Figure 3*. Replication results plotting the internal clock cycle of each
+        <p>Figure 3*. Replication results plotting the internal clock cycle of each
     firefly in the model. Synchrony is reached once each firefly’s internal clock
-    aligns, as seen in the graph.</figcaption>
+    aligns, as seen in the graph.</p>
     </figure>
 </div>
 
@@ -153,11 +153,11 @@ discussed below on parameters where this has a bigger impact on.
     <figure>
         <img src="reports/report_img/num_agents_std_1.png"
             title="Figure 4">
-        <figcaption>Figure 4. A parameter sweep of the number of agents in the model. The graph
+        <p>Figure 4. A parameter sweep of the number of agents in the model. The graph
     plots the number of time steps it takes to synchronize at a given number of
     agents. The error bars have been added to show the standard deviation at each
     data point. The set parameters for this model are: Grid size: 30, Travel step:
-    6, Influence range: 15, Clock cycle: 10.</figcaption>
+    6, Influence range: 15, Clock cycle: 10.</p>
     </figure>
 </div>
 
@@ -184,11 +184,11 @@ than a smaller amount of fireflies.
     <figure>
         <img src="reports/report_img/travel_step_std_1.png"
             title="Figure 5">
-        <figcaption>Figure 5**. A parameter sweep of the agent travel step. Plotted is the
+        <p>Figure 5**. A parameter sweep of the agent travel step. Plotted is the
     number of time steps needed for synchronization at increasing travel step
     values. The error bars have been added to show the standard deviation at each
     data point. The set parameters for this model are: Grid size: 30, Number of
-    agents: 60, Influence range: 15 Clock cycle: 10, Max time steps: 10,000.</figcaption>
+    agents: 60, Influence range: 15 Clock cycle: 10, Max time steps: 10,000.</p>
     </figure>
 </div>
 
@@ -212,10 +212,10 @@ deviation makes the overall trend much weaker.
     <figure>
         <img src="reports/report_img/in_range_std_2.png"
             title="Figure 6">
-        <figcaption>Figure 6**. A parameter sweep of agent influence range showing the number of time steps needed to synchronize against the given influence range. The error
+        <p>Figure 6**. A parameter sweep of agent influence range showing the number of time steps needed to synchronize against the given influence range. The error
     bars have been added to show the standard deviation at each data point. The set
     parameters for this model are: Grid size: 30, Number of agents: 60, Travel step:
-    6, Clock cycle: 10, Max time steps: 10,000.</figcaption>
+    6, Clock cycle: 10, Max time steps: 10,000.</p>
     </figure>
 </div>
 
@@ -223,11 +223,11 @@ deviation makes the overall trend much weaker.
     <figure>
         <img src="reports/report_img/in_range_std_1.png"
             title="Figure 7">
-        <figcaption>Figure 7. A parameter sweep of agent influence range showing the number of
+        <p>Figure 7. A parameter sweep of agent influence range showing the number of
     time steps needed to synchronize against the given influence range. The error
     bars have been added to show the standard deviation at each data point. The set
     parameters for this model are: Grid size: 30, Number of agents: 60, Travel step:
-    6, Clock cycle: 10, Max time steps: 100,000.</figcaption>
+    6, Clock cycle: 10, Max time steps: 100,000.</p>
     </figure>
 </div>
 
