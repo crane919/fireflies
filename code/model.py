@@ -12,7 +12,7 @@ class Firefly_Model():
     Represents a Firefly Syncronizaton Model.
     """
 
-    def __init__(self, grid_size=15, num_agents=25, travel_step=0, in_range=10, clock_cycle=10):
+    def __init__(self, grid_size=30, num_agents=50, travel_step=6, in_range=15, clock_cycle=10):
         """
         Create a new Firefly model
         Args:
@@ -260,10 +260,8 @@ def test_in_range(count):
 
 
 test_model = Firefly_Model(grid_size=30, num_agents=50, travel_step=5, in_range=16, clock_cycle=10)
-# test_model.animate()
-#test_model.run(frames=10000)
+test_model.animate()
+# test_model.run(frames=10000)
 # test_model.plot_blink()
 # test_model.plot_fireflies_over_time()
-print(test_in_range(20))
-
-
+# print(test_in_range(20))
