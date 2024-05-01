@@ -88,7 +88,7 @@ At each time step the following happens, in this order:
 
 <div style="text-align:center">
     <figure>
-        <img src="report_img/fireflies_report.gif"
+        <img src="reports/report_img/fireflies_report.gif"
             title="Figure 1">
         <figcaption>Figure 1. A visualization of our agent-based model. A black point represents a
     non-flashing firefly while a yellow point represents a flashing firefly. This
@@ -99,7 +99,7 @@ At each time step the following happens, in this order:
 
 <div style="text-align:center">
     <figure>
-        <img src="report_img/blink_rate_exp1.png"
+        <img src="reports/report_img/blink_rate_exp1.png"
             title="Figure 2">
         <figcaption>Figure 2*. Replication results plotting the total number of flashes (blinks)
     at each timestep until synchronization. This model uses 50 agents so once the
@@ -109,7 +109,7 @@ At each time step the following happens, in this order:
 
 <div style="text-align:center">
     <figure>
-        <img src="report_img/clock_rate_exp1.png"
+        <img src="reports/report_img/clock_rate_exp1.png"
             title="Figure 3">
         <figcaption>Figure 3*. Replication results plotting the internal clock cycle of each
     firefly in the model. Synchrony is reached once each firefly’s internal clock
@@ -151,7 +151,7 @@ discussed below on parameters where this has a bigger impact on.
 
 <div style="text-align:center">
     <figure>
-        <img src="report_img/num_agents_std_1.png"
+        <img src="reports/report_img/num_agents_std_1.png"
             title="Figure 4">
         <figcaption>Figure 4. A parameter sweep of the number of agents in the model. The graph
     plots the number of time steps it takes to synchronize at a given number of
@@ -182,7 +182,7 @@ than a smaller amount of fireflies.
 
 <div style="text-align:center">
     <figure>
-        <img src="report_img/travel_step_std_1.png"
+        <img src="reports/report_img/travel_step_std_1.png"
             title="Figure 5">
         <figcaption>Figure 5**. A parameter sweep of the agent travel step. Plotted is the
     number of time steps needed for synchronization at increasing travel step
@@ -210,7 +210,7 @@ deviation makes the overall trend much weaker.
 
 <div style="text-align:center">
     <figure>
-        <img src="report_img/in_range_std_2.png"
+        <img src="reports/report_img/in_range_std_2.png"
             title="Figure 6">
         <figcaption>Figure 6**. A parameter sweep of agent influence range showing the number of time steps needed to synchronize against the given influence range. The error
     bars have been added to show the standard deviation at each data point. The set
@@ -221,7 +221,7 @@ deviation makes the overall trend much weaker.
 
 <div style="text-align:center">
     <figure>
-        <img src="report_img/in_range_std_1.png"
+        <img src="reports/report_img/in_range_std_1.png"
             title="Figure 7">
         <figcaption>Figure 7. A parameter sweep of agent influence range showing the number of
     time steps needed to synchronize against the given influence range. The error
